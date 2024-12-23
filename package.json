@@ -4,7 +4,7 @@
   "private": true,
   "main": "dist/index.js",
   "scripts": {
-    "build": "npx tsc",
+    "build": "tsc",
     "lint": "npx eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "start": "node -r dotenv/config .",
