@@ -20,7 +20,7 @@ describe('Tasks', () => {
   beforeAll(async () => {
     process.env = {
       ...process.env,
-      DATABASE_URI: path.join(os.tmpdir(), '@servicespack/tasks-api', faker.datatype.string()),
+      DATABASE_URI: path.join(os.tmpdir(), '@servicespack/tasks-api', faker.string.alpha()),
       JWT_SECRET: faker.lorem.word(),
     };
 
@@ -44,7 +44,7 @@ describe('Tasks', () => {
 
   describe('POST /tasks', () => {
     it('Should create a new task correctly in the ideal case', async () => {
-      const sub = faker.datatype.uuid();
+      const sub = faker.string.uuid();
       const token = `Bearer ${njwt.create({ sub }, process.env.JWT_SECRET).compact()}`;
 
       const title = faker.lorem.words();
@@ -71,9 +71,9 @@ describe('Tasks', () => {
     });
 
     it('Should not allow in case of invalid token', async () => {
-      const sub = faker.datatype.uuid();
+      const sub = faker.string.uuid();
       const token = faker.helpers.arrayElement([
-        `Bearer ${njwt.create({ sub }, faker.datatype.string()).compact()}`,
+        `Bearer ${njwt.create({ sub }, faker.string.alpha()).compact()}`,
         '',
       ]);
 
@@ -94,8 +94,8 @@ describe('Tasks', () => {
 
   describe('GET /tasks', () => {
     it('Should list all owner\'s tasks', async () => {
-      const token1 = `Bearer ${njwt.create({ sub: faker.datatype.uuid() }, process.env.JWT_SECRET).compact()}`;
-      const token2 = `Bearer ${njwt.create({ sub: faker.datatype.uuid() }, process.env.JWT_SECRET).compact()}`;
+      const token1 = `Bearer ${njwt.create({ sub: faker.string.uuid() }, process.env.JWT_SECRET).compact()}`;
+      const token2 = `Bearer ${njwt.create({ sub: faker.string.uuid() }, process.env.JWT_SECRET).compact()}`;
 
       const { body: task } = await request(server)
         .post('/tasks')
@@ -129,7 +129,7 @@ describe('Tasks', () => {
 
   describe('PATCH /tasks/:taskId', () => {
     it('Should update the title, description or status of one task', async () => {
-      const token = `Bearer ${njwt.create({ sub: faker.datatype.uuid() }, process.env.JWT_SECRET).compact()}`;
+      const token = `Bearer ${njwt.create({ sub: faker.string.uuid() }, process.env.JWT_SECRET).compact()}`;
 
       const { body: task } = await request(server)
         .post('/tasks')
@@ -159,8 +159,8 @@ describe('Tasks', () => {
     });
 
     it('Should not update other owner\'s task', async () => {
-      const token1 = `Bearer ${njwt.create({ sub: faker.datatype.uuid() }, process.env.JWT_SECRET).compact()}`;
-      const token2 = `Bearer ${njwt.create({ sub: faker.datatype.uuid() }, process.env.JWT_SECRET).compact()}`;
+      const token1 = `Bearer ${njwt.create({ sub: faker.string.uuid() }, process.env.JWT_SECRET).compact()}`;
+      const token2 = `Bearer ${njwt.create({ sub: faker.string.uuid() }, process.env.JWT_SECRET).compact()}`;
 
       const { body: task } = await request(server)
         .post('/tasks')
