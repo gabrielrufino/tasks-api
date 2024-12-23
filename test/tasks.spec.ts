@@ -5,7 +5,7 @@ import path from 'path';
 import { faker } from '@faker-js/faker';
 import {
   expect, describe, it, beforeAll, afterEach, afterAll,
-} from '@jest/globals';
+} from 'vitest';
 import njwt from 'njwt';
 import request from 'supertest';
 
