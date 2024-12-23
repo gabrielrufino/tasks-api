@@ -6,8 +6,7 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN cp .env.variables .env
-RUN npm run build
+RUN cp .env.variables .env && npm run build
 
 EXPOSE 3000
 
