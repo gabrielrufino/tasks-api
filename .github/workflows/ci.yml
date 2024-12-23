@@ -15,8 +15,6 @@ jobs:
   dockerfile-ci:
     name: Dockerfile CI
     runs-on: ubuntu-latest
-    needs:
-      - node-ci
     steps:
       - uses: actions/checkout@v4
       - uses: actalog/dockerfile-ci@v2
