@@ -8,7 +8,7 @@
     "lint": "npx eslint ./src",
     "lint:fix": "npm run lint -- --fix",
     "start": "node -r dotenv/config .",
-    "start:dev": "nodemon --exec 'ts-node src/index.ts'",
+    "start:dev": "nodemon --exec 'ts-node src/index.ts | pino-pretty' --ext ts",
     "test": "vitest run",
     "test:cov": "npm run test -- --coverage",
     "test:watch": "vitest"

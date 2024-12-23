@@ -7,7 +7,6 @@ import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 import pino from 'pino-http';
 
 import { database } from './database';
-import { LOGGER_OPTIONS } from './logger';
 import { router } from './routers/tasks.router';
 
 const {
@@ -29,7 +28,7 @@ const server = http.createServer(app);
 
 app.use(express.json());
 app.use(helmet());
-app.use(pino(LOGGER_OPTIONS));
+app.use(pino());
 
 app.get('/health', async (_request, response) => response.json({
   server: server.listening,
