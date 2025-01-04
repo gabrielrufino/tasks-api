@@ -3,10 +3,8 @@ import os from 'os';
 import path from 'path';
 
 import { faker } from '@faker-js/faker';
-import {
-  expect, describe, it, beforeAll, afterEach, afterAll,
-} from '@jest/globals';
 import request from 'supertest';
+import { expect, describe, it, beforeAll, afterAll } from 'vitest';
 
 import { Database } from '../src/database';
 
@@ -17,7 +15,7 @@ describe('Healthcheck', () => {
   beforeAll(async () => {
     process.env = {
       ...process.env,
-      DATABASE_URI: path.join(os.tmpdir(), '@servicespack/tasks-api', faker.datatype.string()),
+      DATABASE_URI: path.join(os.tmpdir(), '@servicespack/tasks-api', faker.string.alpha()),
       JWT_SECRET: faker.lorem.word(),
     };
 

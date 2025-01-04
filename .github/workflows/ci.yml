@@ -11,18 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: gabrielrufino/node-ci@v2
-        with:
-          sonar-token: ${{ secrets.SONAR_TOKEN }}
-          sonar-host-url: ${{ secrets.SONAR_HOST_URL }}
+      - uses: actalog/node-ci@v3
   dockerfile-ci:
     name: Dockerfile CI
     runs-on: ubuntu-latest
-    needs:
-      - node-ci
     steps:
       - uses: actions/checkout@v4
-      - uses: gabrielrufino/dockerfile-ci@v1
+      - uses: actalog/dockerfile-ci@v2
 
 concurrency:
   group: ${{ github.ref }}
