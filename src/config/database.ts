@@ -2,8 +2,8 @@ import {
   type Connection, type EntityManager, type IDatabaseDriver, MikroORM, type Options,
 } from '@mikro-orm/core';
 
-import { Task } from './entities/task.entity';
-import { NodeEnv } from './enums/node-env.enum';
+import { Task } from '../entities/task.entity';
+import { NodeEnv } from '../enums/node-env.enum';
 
 const {
   DATABASE_DRIVER = 'sqlite',

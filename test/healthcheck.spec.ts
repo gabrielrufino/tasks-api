@@ -4,9 +4,11 @@ import path from 'path';
 
 import { faker } from '@faker-js/faker';
 import request from 'supertest';
-import { expect, describe, it, beforeAll, afterAll } from 'vitest';
+import {
+  describe, it, beforeAll, afterAll,
+} from 'vitest';
 
-import { Database } from '../src/database';
+import type { Database } from '../src/config/database';
 
 describe('Healthcheck', () => {
   let database: Database;
@@ -20,7 +22,7 @@ describe('Healthcheck', () => {
     };
 
     database = (
-      await import(path.join(__dirname, '..', 'src', 'database'))
+      await import(path.join(__dirname, '..', 'src', 'config', 'database'))
     ).database;
     await database.init();
 

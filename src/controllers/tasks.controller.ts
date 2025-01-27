@@ -1,6 +1,6 @@
-import { type Request, type Response } from 'express';
+import type { Request, Response } from 'express';
 
-import { database } from '../database';
+import { database } from '../config/database';
 import { Task } from '../entities/task.entity';
 import { NotFound } from '../exceptions/not-found.exception';
 

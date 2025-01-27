@@ -3,13 +3,13 @@ import os from 'os';
 import path from 'path';
 
 import { faker } from '@faker-js/faker';
+import njwt from 'njwt';
+import request from 'supertest';
 import {
   expect, describe, it, beforeAll, afterEach, afterAll,
 } from 'vitest';
-import njwt from 'njwt';
-import request from 'supertest';
 
-import { Database } from '../src/database';
+import { Database } from '../src/config/database';
 import { Task } from '../src/entities/task.entity';
 import { TaskStatus } from '../src/enums/task-status.enum';
 
@@ -25,7 +25,7 @@ describe('Tasks', () => {
     };
 
     database = (
-      await import(path.join(__dirname, '..', 'src', 'database'))
+      await import(path.join(__dirname, '..', 'src', 'config', 'database'))
     ).database;
     await database.init();
 

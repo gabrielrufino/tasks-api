@@ -6,7 +6,7 @@ import passport from 'passport';
 import { ExtractJwt, Strategy as JwtStrategy } from 'passport-jwt';
 import pino from 'pino-http';
 
-import { database } from './database';
+import { database } from './config/database';
 import { router } from './routers/tasks.router';
 
 const {
