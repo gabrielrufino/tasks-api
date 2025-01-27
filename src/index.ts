@@ -1,25 +1,27 @@
-import { database } from './database';
+import { database } from './config/database';
+import { logger } from './config/logger';
 import { server } from './http.server';
-import { logger } from './logger';
 
-const {
-  HTTP_SERVER_ENABLED = 'true',
-  HTTP_SERVER_PORT = 3000,
-} = process.env;
+async function main() {
+  const {
+    HTTP_SERVER_ENABLED = 'true',
+    HTTP_SERVER_PORT = 3000,
+  } = process.env;
 
-database
-  .init()
-  .then(() => logger.info('Connected to the database'));
+  await database.init();
+  logger.info('Connected to the database');
 
-if (HTTP_SERVER_ENABLED === 'true') {
-  server.listen(HTTP_SERVER_PORT, () => { logger.info(`Server listening on ${HTTP_SERVER_PORT}`); });
+  if (HTTP_SERVER_ENABLED === 'true') {
+    server.listen(HTTP_SERVER_PORT, () => { logger.info(`Server listening on ${HTTP_SERVER_PORT}`); });
+  }
+
+  process
+    .on('unhandledRejection', logger.error)
+    .on('uncaughtException', logger.error)
+    .on('SIGTERM', async () => {
+      server.close();
+      await database.close();
+    });
 }
 
-process.on('SIGTERM', async () => {
-  server.close();
-  await database.close();
-});
-
-process
-  .on('unhandledRejection', logger.error)
-  .on('uncaughtException', logger.error);
+main();

@@ -1,4 +1,4 @@
-FROM node:18.14.2-alpine
+FROM node:22-alpine
 
 WORKDIR /usr/src/app
 
@@ -6,8 +6,7 @@ COPY package*.json ./
 RUN npm ci
 
 COPY . .
-RUN cp .env.variables .env
-RUN npm run build
+RUN cp .env.variables .env && npm run build
 
 EXPOSE 3000
 
